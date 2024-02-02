@@ -1,6 +1,6 @@
+import { notesMock } from '@/store/mocks'
 import { NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
-import { notesMock } from './mocks'
 
 export const notesAtom = atom<NoteInfo[]>(notesMock)
 
@@ -10,7 +10,7 @@ export const selectedNoteAtom = atom((get) => {
   const notes = get(notesAtom)
   const selectedNoteIndex = get(selectedNoteIndexAtom)
 
-  if (selectedNoteIndex == null) return null
+  if (!selectedNoteIndex == null) return null
 
   const selectedNote = notes[selectedNoteIndex]
 
@@ -22,6 +22,7 @@ export const selectedNoteAtom = atom((get) => {
 
 export const createEmptyNoteAtom = atom(null, (get, set) => {
   const notes = get(notesAtom)
+
   const title = `Note ${notes.length + 1}`
 
   const newNote: NoteInfo = {
